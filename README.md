@@ -9,3 +9,17 @@ Sometimes, really great CLIs output really colorful content, to help you easily 
 ## Profit
 
     colorful-command | unstyle > output.txt
+    
+## But I just want to do it inside my app.
+
+```javascript
+var unstyle = require('unstyle);
+unstyle.stream(inputStream, outputStream);
+```
+
+## What are streams? I have a string.
+
+```javascript
+var unstyle = require('unstyle);
+var cleanString = unstyle.string(dirtyString);
+```
