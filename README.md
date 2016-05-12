@@ -4,12 +4,16 @@ Sometimes, really great CLIs output really colorful content, to help you easily 
 
 ## Install
 
-    npm install --global unstyle
-    
+```bash
+npm install --global unstyle
+```
+
 ## Profit
 
-    colorful-command | unstyle > output.txt
-    
+```bash
+colorful-command | unstyle > output.txt
+```
+
 ## But I just want to do it inside my app.
 
 ```javascript
