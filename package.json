@@ -7,5 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kiril Vatev <vatev.1@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "bin": {
+    "unstyle": "cli.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/catdad/unstyle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/catdad/unstyle/issues"
+  },
+  "homepage": "https://github.com/catdad/unstyle#readme"
 }
