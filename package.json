@@ -9,7 +9,7 @@
   "author": "Kiril Vatev <vatev.1@gmail.com>",
   "license": "ISC",
   "bin": {
-    "unstyle": "cli.js"
+    "unstyle": "bin/cli.js"
   },
   "directories": {
     "test": "test"
