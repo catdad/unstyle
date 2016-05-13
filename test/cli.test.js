@@ -9,7 +9,10 @@ var through = require('through2');
 var chalk = require('chalk');
 var shellton = require('shellton');
 
-var CLI = 'node ' + path.join(__dirname, '..', pkg.bin.unstyle);
+var rel = path.join(__dirname, '..');
+var cliPath = path.join(rel, pkg.bin.unstyle);
+
+var CLI =  util.format('node %s', cliPath);
 
 var STR = 'red';
 var COLORED_STR = (function(str) {
