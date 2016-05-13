@@ -1,3 +1,7 @@
 node_modules/
 test/
 coverage/
+
+.travis.yml
+.brackets.json
+.gitattributes
