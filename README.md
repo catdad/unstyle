@@ -1,9 +1,12 @@
 # Unstyle
 
-[![Build][1]][2] [![Code Climate][5]][6] [![Downloads][7]][8] [![Version][9]][8]
+[![Build][1]][2] [![Test Coverage][3]][4] [![Code Climate][5]][6] [![Downloads][7]][8] [![Version][9]][8]
 
 [1]: https://travis-ci.org/catdad/unstyle.svg?branch=master
 [2]: https://travis-ci.org/catdad/unstyle
+
+[3]: https://codeclimate.com/github/catdad/unstyle/badges/coverage.svg
+[4]: https://codeclimate.com/github/catdad/unstyle/coverage
 
 [5]: https://codeclimate.com/github/catdad/unstyle/badges/gpa.svg
 [6]: https://codeclimate.com/github/catdad/unstyle
