@@ -1,6 +1,6 @@
 {
   "name": "unstyle",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Unstyle CLI output",
   "main": "index.js",
   "scripts": {
