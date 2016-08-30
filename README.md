@@ -1,6 +1,11 @@
 # Unstyle
 
-[![Build][1]][2] [![Test Coverage][3]][4] [![Code Climate][5]][6] [![Downloads][7]][8] [![Version][9]][8]
+[![Build][1]][2]
+[![Test Coverage][3]][4]
+[![Code Climate][5]][6]
+[![Downloads][7]][8]
+[![Version][9]][8]
+[![Dependency Status][10]][11]
 
 [1]: https://travis-ci.org/catdad/unstyle.svg?branch=master
 [2]: https://travis-ci.org/catdad/unstyle
@@ -14,6 +19,9 @@
 [7]: https://img.shields.io/npm/dm/unstyle.svg
 [8]: https://www.npmjs.com/package/unstyle
 [9]: https://img.shields.io/npm/v/unstyle.svg
+
+[10]: https://david-dm.org/catdad/unstyle.svg
+[11]: https://david-dm.org/catdad/unstyle
 
 Sometimes, really great CLIs output really colorful content, to help you easily take in and unserstand the output at a glance. And sometimes, they don't provide a way to easily get rid of the colors. And sometimes, really great CLIs use third-party tools that output pretty colors, and forget to pass through the option to print plain text. And sometimes, you just don't care and you want those colors gone. And if all of those times are right now, then you have come to the right place.
 
