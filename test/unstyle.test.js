@@ -14,6 +14,42 @@ function styleStr(str, func) {
 }
 
 describe('[unstyle]', function() {
+    describe('pipe', function() {
+        var STR = 'red';
+        var STYLE = styleStr(STR, chalk.red.bind(chalk));
+        
+        it('allows a stream to be piped in and transformed', function(done) {
+            var input = through();
+            
+            input.pipe(lib()).pipe(es.wait(function(err, data) {
+                data = data.toString();
+                
+                expect(data).to.equal(STR);
+                
+                done();
+            }));
+            
+            input.write(STR);
+            input.end();
+        });
+        
+        it('can read buffers', function(done) {
+            var input = through();
+            
+            input.pipe(lib()).pipe(es.wait(function(err, data) {
+                data = data.toString();
+                
+                expect(data).to.equal(STR);
+                
+                done();
+            }));
+            
+            input.write(new Buffer(STR));
+            input.end();
+        });
+    });
+    
+    
     describe('#stream', function() {
         var STR = 'red';
         var STYLED = styleStr(STR, chalk.red.bind(chalk));
