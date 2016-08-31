@@ -50,3 +50,10 @@ unstyle.stream(inputStream, outputStream);
 var unstyle = require('unstyle');
 var cleanString = unstyle.string(dirtyString);
 ```
+
+## But do you have a stream I can just pipe through?
+
+```javascript
+var unstyle = require('unstyle');
+inputStream.pipe(unstyle()).pipe(outputStream);
+```
