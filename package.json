@@ -36,5 +36,10 @@
   "dependencies": {
     "eol-fix-stream": "^1.0.0",
     "through2": "^2.0.1"
-  }
+  },
+  "keywords": [
+    "unstyle",
+    "stream",
+    "eol"
+  ]
 }
