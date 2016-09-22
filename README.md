@@ -37,6 +37,12 @@ npm install --global unstyle
 colorful-command | unstyle > output.txt
 ```
 
+Want to capture stderr as well?
+
+```bash
+colorful-command 2>&1 | unstyle
+```
+
 ## But I just want to do it inside my app.
 
 ```javascript
