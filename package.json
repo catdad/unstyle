@@ -2,7 +2,7 @@
   "name": "unstyle",
   "version": "0.0.7",
   "description": "Unstyle CLI output",
-  "main": "index.js",
+  "main": "lib/unstyle.js",
   "scripts": {
     "test": "mocha",
     "coverage": "istanbul cover --dir coverage node_modules/mocha/bin/_mocha",

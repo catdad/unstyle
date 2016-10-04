@@ -5,7 +5,7 @@ var through = require('through2');
 var es = require('event-stream');
 var chalk = require('chalk');
 
-var lib = require('../lib/unstyle.js');
+var lib = require('../');
 
 function styleStr(str, func) {
     return str.split().map(function(char) {
