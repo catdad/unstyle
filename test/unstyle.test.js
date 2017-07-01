@@ -1,4 +1,4 @@
-/* jshint node: true, mocha: true, expr: true */
+/* jshint node: true, mocha: true, expr: true, unused: true */
 
 var expect = require('chai').expect;
 var through = require('through2');
@@ -32,16 +32,6 @@ function createStreamTest(expected, writeFunc, onDone) {
     writeFunc(input, output);
     
     return input;
-}
-
-function streamTest(writeFunc, onDone) {
-    var strOrig = 'red';
-    var strIn = styleStr(strOrig, chalk.red.bind(chalk));
-    
-    var input = createStreamTest(strOrig, writeFunc, onDone);
-    
-    input.write(strIn);
-    input.end();
 }
 
 function addStreamTests(writeFunc) {
