@@ -31,7 +31,7 @@
     "event-stream": "^3.3.2",
     "istanbul": "^0.4.3",
     "mocha": "^3.1.0",
-    "shellton": "^2.1.1"
+    "shellton": "^3.1.0"
   },
   "dependencies": {
     "eol-fix-stream": "^1.0.0",
