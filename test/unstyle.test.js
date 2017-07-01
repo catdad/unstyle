@@ -22,6 +22,10 @@ describe('[unstyle]', function() {
             var input = through();
             
             input.pipe(lib()).pipe(es.wait(function(err, data) {
+                if (err) {
+                    return done(err);
+                }
+                
                 data = data.toString();
                 
                 expect(data).to.equal(STR);
@@ -37,6 +41,10 @@ describe('[unstyle]', function() {
             var input = through();
             
             input.pipe(lib()).pipe(es.wait(function(err, data) {
+                if (err) {
+                    return done(err);
+                }
+                
                 data = data.toString();
                 
                 expect(data).to.equal(STR);
@@ -61,6 +69,10 @@ describe('[unstyle]', function() {
             lib.stream(input, output);
             
             output.pipe(es.wait(function(err, data) {
+                if (err) {
+                    return done(err);
+                }
+                
                 data = data.toString();
                 
                 expect(data).to.equal(STR + STR);
@@ -80,6 +92,10 @@ describe('[unstyle]', function() {
             lib.stream(input, output);
             
             output.pipe(es.wait(function(err, data) {
+                if (err) {
+                    return done(err);
+                }
+                
                 data = data.toString();
                 
                 expect(data).to.not.equal(STYLED);
