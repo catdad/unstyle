@@ -39,6 +39,14 @@ function streamTest(writeFunc, onDone) {
     input.end();
 }
 
+function addStreamTests(writeFunc) {
+    it('unstyles styled strings');
+    
+    it('unstyles styles buffers');
+    
+    it('handles multiple asynchronous writes');
+}
+
 describe('[unstyle]', function() {
     describe('pipe', function() {
         var STR = 'red';
@@ -70,6 +78,8 @@ describe('[unstyle]', function() {
             input.write(new Buffer(STR));
             input.end();
         });
+        
+        addStreamTests();
     });
     
     
@@ -77,51 +87,15 @@ describe('[unstyle]', function() {
         var STR = 'red';
         var STYLED = styleStr(STR, chalk.red.bind(chalk));
         
-        it('pipes content through to the output', function(done) {
-            var input = through();
-            var output = through();
-            
+        function writeFunc(input, output) {
             lib.stream(input, output);
-            
-            output.pipe(es.wait(function(err, data) {
-                if (err) {
-                    return done(err);
-                }
-                
-                data = data.toString();
-                
-                expect(data).to.equal(STR + STR);
-                
-                done();
-            }));
-            
-            input.write(STR);
-            input.write(STR);
-            input.end();
-        });
+        }
         
         it('writes unstyled output to the output stream', function(done) {
-            var input = through();
-            var output = through();
-            
-            lib.stream(input, output);
-            
-            output.pipe(es.wait(function(err, data) {
-                if (err) {
-                    return done(err);
-                }
-                
-                data = data.toString();
-                
-                expect(data).to.not.equal(STYLED);
-                expect(data).to.equal(STR);
-                
-                done();
-            }));
-            
-            input.write(STYLED);
-            input.end();
+            streamTest(writeFunc, done);
         });
+        
+        addStreamTests();
     });
     
     describe('#string', function() {
