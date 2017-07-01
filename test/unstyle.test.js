@@ -1,4 +1,4 @@
-/* jshint node: true, mocha: true, expr: true */
+/* jshint node: true, mocha: true, expr: true, unused: true */
 
 var expect = require('chai').expect;
 var through = require('through2');
@@ -13,99 +13,87 @@ function styleStr(str, func) {
     }).join('');
 }
 
+function createStreamTest(expected, writeFunc, onDone) {
+    var input = through();
+    var output = through();
+    
+    output.pipe(es.wait(function (err, data) {
+        if (err) {
+            return onDone(err);
+        }
+        
+        var strOut = data.toString();
+        
+        expect(strOut).to.equal(expected);
+        
+        onDone();
+    }));
+    
+    writeFunc(input, output);
+    
+    return input;
+}
+
+function addStreamTests(writeFunc) {
+    it('unstyles styled strings', function(done) {
+        var STR = 'pineapples';
+        var styled = chalk.red(STR);
+        
+        expect(styled).to.not.equal(STR);
+        
+        var stream = createStreamTest(STR, writeFunc, done);
+        
+        stream.write(styled);
+        stream.end();
+    });
+    
+    it('unstyles styles buffers', function(done) {
+        var STR = 'pineapples';
+        var styled = chalk.red(STR);
+        
+        expect(styled).to.not.equal(STR);
+        
+        var stream = createStreamTest(STR, writeFunc, done);
+        
+        stream.write(new Buffer(styled));
+        stream.end();
+    });
+    
+    it('handles multiple asynchronous writes', function(done) {
+        var WRITES = 3;
+        var STR = 'pineapples';
+        var styled = chalk.red(STR);
+
+        expect(styled).to.not.equal(STR);
+        
+        var stream = createStreamTest(STR + STR + STR, writeFunc, done);
+        
+        function write(count) {
+            if (count < WRITES) {
+                setTimeout(function() {
+                    stream.write(styled);
+                    write(count + 1);
+                }, 1);
+            } else {
+                stream.end();
+            }
+        }
+        
+        write(0);
+    });
+}
+
 describe('[unstyle]', function() {
     describe('pipe', function() {
-        var STR = 'red';
-        var STYLE = styleStr(STR, chalk.red.bind(chalk));
-        
-        it('allows a stream to be piped in and transformed', function(done) {
-            var input = through();
-            
-            input.pipe(lib()).pipe(es.wait(function(err, data) {
-                if (err) {
-                    return done(err);
-                }
-                
-                data = data.toString();
-                
-                expect(data).to.equal(STR);
-                
-                done();
-            }));
-            
-            input.write(STR);
-            input.end();
-        });
-        
-        it('can read buffers', function(done) {
-            var input = through();
-            
-            input.pipe(lib()).pipe(es.wait(function(err, data) {
-                if (err) {
-                    return done(err);
-                }
-                
-                data = data.toString();
-                
-                expect(data).to.equal(STR);
-                
-                done();
-            }));
-            
-            input.write(new Buffer(STR));
-            input.end();
+        addStreamTests(function writeFunc(input, output) {
+            input.pipe(lib()).pipe(output);
         });
     });
     
     
     describe('#stream', function() {
-        var STR = 'red';
-        var STYLED = styleStr(STR, chalk.red.bind(chalk));
-        
-        it('pipes content through to the output', function(done) {
-            var input = through();
-            var output = through();
-            
+        addStreamTests(function writeFunc(input, output) {
             lib.stream(input, output);
-            
-            output.pipe(es.wait(function(err, data) {
-                if (err) {
-                    return done(err);
-                }
-                
-                data = data.toString();
-                
-                expect(data).to.equal(STR + STR);
-                
-                done();
-            }));
-            
-            input.write(STR);
-            input.write(STR);
-            input.end();
-        });
-        
-        it('writes unstyled output to the output stream', function(done) {
-            var input = through();
-            var output = through();
-            
-            lib.stream(input, output);
-            
-            output.pipe(es.wait(function(err, data) {
-                if (err) {
-                    return done(err);
-                }
-                
-                data = data.toString();
-                
-                expect(data).to.not.equal(STYLED);
-                expect(data).to.equal(STR);
-                
-                done();
-            }));
-            
-            input.write(STYLED);
-            input.end();
         });
     });
     
