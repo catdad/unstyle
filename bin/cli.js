@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* jshint node: true */
 
-var unstyle = require('../lib/unstyle.js');
+var unstyle = require('../');
 
 function arrContains(arr, val) {
     return arr.indexOf(val) > -1;
