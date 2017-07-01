@@ -27,11 +27,11 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chalk": "^1.1.3",
-    "codeclimate-test-reporter": "^0.3.1",
+    "codeclimate-test-reporter": "^0.5.0",
     "event-stream": "^3.3.2",
     "istanbul": "^0.4.3",
-    "mocha": "^3.1.0",
-    "shellton": "^2.1.1"
+    "mocha": "^3.4.2",
+    "shellton": "^3.1.0"
   },
   "dependencies": {
     "eol-fix-stream": "^1.0.0",
