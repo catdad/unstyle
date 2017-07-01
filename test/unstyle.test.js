@@ -47,7 +47,7 @@ function addStreamTests(writeFunc) {
         stream.end();
     });
     
-    it('unstyles styles buffers', function(done) {
+    it('unstyles styled buffers', function(done) {
         var STR = 'pineapples';
         var styled = chalk.red(STR);
         
