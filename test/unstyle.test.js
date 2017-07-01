@@ -13,28 +13,43 @@ function styleStr(str, func) {
     }).join('');
 }
 
+function streamTest(writeFunc, onDone) {
+    var strOrig = 'red';
+    var strIn = styleStr(strOrig, chalk.red.bind(chalk));
+    
+    var input = through();
+    var output = through();
+    
+    output.pipe(es.wait(function (err, data) {
+        if (err) {
+            return onDone(err);
+        }
+        
+        var strOut = data.toString();
+        
+        expect(strOut).to.not.equal(strIn);
+        expect(strOut).to.equal(strOrig);
+        
+        onDone();
+    }));
+    
+    writeFunc(input, output);
+    
+    input.write(strIn);
+    input.end();
+}
+
 describe('[unstyle]', function() {
     describe('pipe', function() {
         var STR = 'red';
         var STYLE = styleStr(STR, chalk.red.bind(chalk));
         
+        function writeFunc(input, output) {
+            input.pipe(lib()).pipe(output);
+        }
+        
         it('allows a stream to be piped in and transformed', function(done) {
-            var input = through();
-            
-            input.pipe(lib()).pipe(es.wait(function(err, data) {
-                if (err) {
-                    return done(err);
-                }
-                
-                data = data.toString();
-                
-                expect(data).to.equal(STR);
-                
-                done();
-            }));
-            
-            input.write(STR);
-            input.end();
+            streamTest(writeFunc, done);
         });
         
         it('can read buffers', function(done) {
