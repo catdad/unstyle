@@ -13,10 +13,7 @@ function styleStr(str, func) {
     }).join('');
 }
 
-function streamTest(writeFunc, onDone) {
-    var strOrig = 'red';
-    var strIn = styleStr(strOrig, chalk.red.bind(chalk));
-    
+function createStreamTest(expected, writeFunc, onDone) {
     var input = through();
     var output = through();
     
@@ -27,75 +24,87 @@ function streamTest(writeFunc, onDone) {
         
         var strOut = data.toString();
         
-        expect(strOut).to.not.equal(strIn);
-        expect(strOut).to.equal(strOrig);
+        expect(strOut).to.equal(expected);
         
         onDone();
     }));
     
     writeFunc(input, output);
     
+    return input;
+}
+
+function streamTest(writeFunc, onDone) {
+    var strOrig = 'red';
+    var strIn = styleStr(strOrig, chalk.red.bind(chalk));
+    
+    var input = createStreamTest(strOrig, writeFunc, onDone);
+    
     input.write(strIn);
     input.end();
 }
 
 function addStreamTests(writeFunc) {
-    it('unstyles styled strings');
+    it('unstyles styled strings', function(done) {
+        var STR = 'pineapples';
+        var styled = chalk.red(STR);
+        
+        expect(styled).to.not.equal(STR);
+        
+        var stream = createStreamTest(STR, writeFunc, done);
+        
+        stream.write(styled);
+        stream.end();
+    });
     
-    it('unstyles styles buffers');
+    it('unstyles styles buffers', function(done) {
+        var STR = 'pineapples';
+        var styled = chalk.red(STR);
+        
+        expect(styled).to.not.equal(STR);
+        
+        var stream = createStreamTest(STR, writeFunc, done);
+        
+        stream.write(new Buffer(styled));
+        stream.end();
+    });
     
-    it('handles multiple asynchronous writes');
+    it('handles multiple asynchronous writes', function(done) {
+        var WRITES = 3;
+        var STR = 'pineapples';
+        var styled = chalk.red(STR);
+
+        expect(styled).to.not.equal(STR);
+        
+        var stream = createStreamTest(STR + STR + STR, writeFunc, done);
+        
+        function write(count) {
+            if (count < WRITES) {
+                setTimeout(function() {
+                    stream.write(styled);
+                    write(count + 1);
+                }, 1);
+            } else {
+                stream.end();
+            }
+        }
+        
+        write(0);
+    });
 }
 
 describe('[unstyle]', function() {
     describe('pipe', function() {
-        var STR = 'red';
-        var STYLE = styleStr(STR, chalk.red.bind(chalk));
-        
-        function writeFunc(input, output) {
+        addStreamTests(function writeFunc(input, output) {
             input.pipe(lib()).pipe(output);
-        }
-        
-        it('allows a stream to be piped in and transformed', function(done) {
-            streamTest(writeFunc, done);
         });
-        
-        it('can read buffers', function(done) {
-            var input = through();
-            
-            input.pipe(lib()).pipe(es.wait(function(err, data) {
-                if (err) {
-                    return done(err);
-                }
-                
-                data = data.toString();
-                
-                expect(data).to.equal(STR);
-                
-                done();
-            }));
-            
-            input.write(new Buffer(STR));
-            input.end();
-        });
-        
-        addStreamTests();
     });
     
     
     describe('#stream', function() {
-        var STR = 'red';
-        var STYLED = styleStr(STR, chalk.red.bind(chalk));
-        
-        function writeFunc(input, output) {
+        addStreamTests(function writeFunc(input, output) {
             lib.stream(input, output);
-        }
-        
-        it('writes unstyled output to the output stream', function(done) {
-            streamTest(writeFunc, done);
         });
-        
-        addStreamTests();
     });
     
     describe('#string', function() {
