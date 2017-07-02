@@ -143,5 +143,9 @@ describe('[unstyle]', function() {
             });
         });
         
+        it('unstyles a string parameter');
+        
+        it('unstyles a buffer parameter');
+        
     });
 });
