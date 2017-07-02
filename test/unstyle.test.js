@@ -99,9 +99,27 @@ describe('[unstyle]', function() {
     
     describe('#string', function() {
         
-        it('unstyles a string parameter');
+        it('unstyles a string parameter', function() {
+            var STR = 'pineapple';
+            var styled = chalk.yellow(STR);
+            
+            var result = lib.string(styled);
+            
+            expect(result).to.be.a('string');
+            expect(result).to.equal(STR);
+            expect(result).to.not.equal(styled);
+        });
         
-        it('unstyles a buffer parameter');
+        it('unstyles a buffer parameter', function() {
+            var STR = 'pineapple';
+            var styled = chalk.yellow(STR);
+            
+            var result = lib.string(new Buffer(styled));
+            
+            expect(result).to.be.a('string');
+            expect(result).to.equal(STR);
+            expect(result).to.not.equal(styled);
+        });
         
         // All the styles listed in the chalk help
         var styles = [
