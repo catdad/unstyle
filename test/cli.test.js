@@ -60,5 +60,11 @@ describe('[cli]', function() {
         stdin.write(COLORED_STR);
         stdin.end();
     });
+    
+    describe('reports the version number', function() {
+        it('when using the --version flag');
+        
+        it('when using the -v flag');
+    });
 
 });
