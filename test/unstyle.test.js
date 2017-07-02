@@ -99,6 +99,10 @@ describe('[unstyle]', function() {
     
     describe('#string', function() {
         
+        it('unstyles a string parameter');
+        
+        it('unstyles a buffer parameter');
+        
         // All the styles listed in the chalk help
         var styles = [
             'reset',    
@@ -142,10 +146,6 @@ describe('[unstyle]', function() {
                 expect(val).to.equal(STR);
             });
         });
-        
-        it('unstyles a string parameter');
-        
-        it('unstyles a buffer parameter');
         
     });
 });
