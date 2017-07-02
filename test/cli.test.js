@@ -62,9 +62,29 @@ describe('[cli]', function() {
     });
     
     describe('reports the version number', function() {
-        it('when using the --version flag');
+        var VERSION = pkg.version;
         
-        it('when using the -v flag');
+        function createVersionTest(flag) {
+            return function(done) {
+                shellton({
+                    task: CLI + ' ' + flag,
+                    cwd: __dirname
+                }, function (err, stdout, stderr) {
+                    if (err) {
+                        return done(err);
+                    }
+                    
+                    expect(stdout).to.equal('v' + VERSION + '\n');
+                    expect(stderr).to.equal('');
+                    
+                    done();
+                });
+            };
+        }
+        
+        it('when using the --version flag', createVersionTest('--version'));
+        
+        it('when using the -v flag', createVersionTest('-v'));
     });
 
 });
