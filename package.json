@@ -5,8 +5,7 @@
   "main": "lib/unstyle.js",
   "scripts": {
     "test": "nyc mocha",
-    "coverage": "istanbul cover --dir coverage node_modules/mocha/bin/_mocha",
-    "istanbul": "istanbul"
+    "mocha": "mocha"
   },
   "author": "Kiril Vatev <vatev.1@gmail.com>",
   "license": "ISC",
