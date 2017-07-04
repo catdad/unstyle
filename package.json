@@ -4,7 +4,7 @@
   "description": "Unstyle CLI output",
   "main": "lib/unstyle.js",
   "scripts": {
-    "test": "mocha",
+    "test": "nyc mocha",
     "coverage": "istanbul cover --dir coverage node_modules/mocha/bin/_mocha",
     "istanbul": "istanbul"
   },
@@ -31,6 +31,7 @@
     "event-stream": "^3.3.2",
     "istanbul": "^0.4.3",
     "mocha": "^3.4.2",
+    "nyc": "^11.0.3",
     "shellton": "^3.1.0"
   },
   "dependencies": {
