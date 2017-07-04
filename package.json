@@ -42,5 +42,14 @@
     "unstyle",
     "stream",
     "eol"
-  ]
+  ],
+  "nyc": {
+    "statements": 100,
+    "branches": 100,
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "check-coverage": true
+  }
 }
