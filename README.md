@@ -47,7 +47,7 @@ colorful-command 2>&1 | unstyle
 
 ```javascript
 var unstyle = require('unstyle');
-unstyle.stream(inputStream, outputStream);
+inputStream.pipe(unstyle()).pipe(outputStream);
 ```
 
 ## What are streams? I have a string.
@@ -55,11 +55,4 @@ unstyle.stream(inputStream, outputStream);
 ```javascript
 var unstyle = require('unstyle');
 var cleanString = unstyle.string(dirtyString);
-```
-
-## But do you have a stream I can just pipe through?
-
-```javascript
-var unstyle = require('unstyle');
-inputStream.pipe(unstyle()).pipe(outputStream);
 ```
