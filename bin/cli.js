@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 /* jshint node: true */
 
+var eolFix = require('eol-fix-stream');
+
 var unstyle = require('../');
 
 function arrContains(arr, val) {
@@ -19,4 +21,7 @@ if (checkVersionCommand()) {
     process.exit(0);
 }
 
-unstyle.stream(process.stdin, process.stdout);
+process.stdin
+    .pipe(unstyle())
+    .pipe(eolFix())
+    .pipe(process.stdout);
