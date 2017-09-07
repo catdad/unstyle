@@ -9,9 +9,8 @@ var through = require('through2');
 var chalk = require('chalk');
 var shellton = require('shellton');
 
-var cliPath = path.join(__dirname, '..', pkg.bin.unstyle);
-
-var CLI =  util.format('node %s', cliPath);
+var CLI_PATH = path.join(__dirname, '..', pkg.bin.unstyle);
+var CLI =  util.format('node %s', CLI_PATH);
 var ENV_PATH = path.dirname(process.execPath);
 var ENV = {
     PATH: ENV_PATH
