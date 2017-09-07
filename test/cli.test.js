@@ -13,6 +13,10 @@ var rel = path.join(__dirname, '..');
 var cliPath = path.join(rel, pkg.bin.unstyle);
 
 var CLI =  util.format('node %s', cliPath);
+var ENV_PATH = path.dirname(process.execPath);
+var ENV = {
+    PATH: ENV_PATH
+};
 
 var STR = 'red';
 var COLORED_STR = (function(str) {
@@ -28,7 +32,8 @@ describe('[cli]', function() {
         shellton({
             task: CLI,
             stdin: stdin,
-            cwd: __dirname
+            cwd: __dirname,
+            env: ENV
         }, function(err, stdout, stderr) {
             expect(err).to.not.be.ok;
             
@@ -47,7 +52,8 @@ describe('[cli]', function() {
         shellton({
             task: CLI,
             stdin: stdin,
-            cwd: __dirname
+            cwd: __dirname,
+            env: ENV
         }, function(err, stdout, stderr) {
             expect(err).to.not.be.ok;
             
@@ -68,7 +74,8 @@ describe('[cli]', function() {
             return function(done) {
                 shellton({
                     task: CLI + ' ' + flag,
-                    cwd: __dirname
+                    cwd: __dirname,
+                    env: ENV
                 }, function (err, stdout, stderr) {
                     if (err) {
                         return done(err);
